@@ -31,6 +31,7 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
         })
     }
 
+
     const onFormSubmit = (event) => {
         createNewCompetition()
         event.preventDefault();
