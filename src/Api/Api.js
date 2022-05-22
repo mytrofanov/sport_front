@@ -18,5 +18,13 @@ export const competitionsAPI = {
                 return response.data
             });
     },
+    createNewCompetition(newCompetition) {
+        return instance.post (`createCompetition`,newCompetition)
+            .then(response => {
+                console.log(response)
+                return response.data
+            });
+    },
+
 
 }
