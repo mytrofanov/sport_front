@@ -1,9 +1,10 @@
 import React from 'react';
 import {Button, Table} from "react-bootstrap";
-import Line from "./line";
+import './table.css'
+
 
 const TableComponent = ({competitions, selectedCompetition}) => {
-    console.log(competitions)
+    console.log('competitions:', competitions)
 
     return (
         <div>
@@ -23,7 +24,11 @@ const TableComponent = ({competitions, selectedCompetition}) => {
 
                 {competitions.map((item, index) =>
                     <tr key={index + item.name} >
-                        <td>{item.name}</td>
+                        <td className={'buttonsInTable'}>{item.name}
+                            <span>
+                                <Button variant="outline-secondary">DEL</Button>
+                                <Button variant="outline-secondary">EDIT</Button>
+                            </span></td>
                         <td>{item.type}</td>
                         <td>{item.player1}</td>
                         <td>{item.player2}</td>

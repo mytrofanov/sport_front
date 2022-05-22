@@ -15,19 +15,32 @@ export const competitionSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchCompetitionsFromServer.fulfilled, (state, action) => {
+        builder
+            .addCase(fetchCompetitionsFromServer.fulfilled, (state, action) => {
             state.competitions = action.payload
         })
+            .addCase(fetchGameTypesFromServer.fulfilled, (state, action) => {
+                state.gameTypes = action.payload
+            })
     },
+
+
 })
 
 export const { setSelectedCompetition } = competitionSlice.actions
 
 
 export const fetchCompetitionsFromServer = createAsyncThunk(
-    'competitions/fetchFood',
+    'competitions/fetchCompetitions',
     async () => {
         const response = await competitionsAPI.allCompetitions()
+        return response
+    }
+)
+export const fetchGameTypesFromServer = createAsyncThunk(
+    'competitions/fetchGameTypes',
+    async () => {
+        const response = await competitionsAPI.gameTypes()
         return response
     }
 )

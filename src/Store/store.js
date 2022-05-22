@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import foodReducer from '../features/competitions/competitionSlice'
+import competitionReducer from '../features/competitions/competitionSlice'
 
 export default configureStore({
     reducer: {
-        competitionsStore: foodReducer
+        competitionsStore: competitionReducer
     },
 });

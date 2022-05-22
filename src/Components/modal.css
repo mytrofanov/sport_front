@@ -1,0 +1,63 @@
+.modalWin {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+.modalWin.active{
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal_content {
+    padding: 20px;
+    border-radius: 16px;
+    background-color: white;
+    width: 330px;
+    transform: scale(0.5);
+    transition: 0.4s all;
+}
+.modal_content.active{
+    transform: scale(1);
+}
+.closeModalButton{
+    position: absolute;
+    top: -5%;
+    left: 90%;
+}
+.goodsTitleBlock {
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    border-radius: 16px;
+}
+.centeredPrice{
+    margin-left: 25%;
+    text-align: left;
+}
+
+/*HEIGHT*/
+@media only screen and (max-height: 280px) {
+    .modal_content {
+        padding: 0px;
+    }
+}
+@media only screen and (max-height: 414px) {
+    .modal_content {
+        padding: 1px;
+    }
+}
+/*WIDTH*/
+@media only screen and (max-width: 320px) {
+    .modal_content {
+         width: 90%;
+     }
+}

@@ -9,7 +9,12 @@ export const competitionsAPI = {
     allCompetitions() {
         return instance.get (`competitions`)
             .then(response => {
-                // console.log('API: ', response)
+                return response.data
+            });
+    },
+    gameTypes() {
+        return instance.get (`games`)
+            .then(response => {
                 return response.data
             });
     },
