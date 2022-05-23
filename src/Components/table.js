@@ -3,11 +3,6 @@ import {Button, Table} from "react-bootstrap";
 import './table.css'
 
 const TableComponent = ({competitions, deleteCompetition, editCompetition,selectCompetition, selectedCompetition}) => {
-    console.log('competitions in table: ', competitions)
-
-    const check = selectedCompetition.length > 0 && selectedCompetition[0]._id
-
-    console.log('selectedCompetition:', selectedCompetition)
 
     return (
         <div>
@@ -27,8 +22,8 @@ const TableComponent = ({competitions, deleteCompetition, editCompetition,select
 
                 {competitions.map((item, index) =>
 
-                    <tr key={index + item.name} onClick={()=>{selectCompetition(item._id)}}
-                        style={item._id === check ? {backgroundColor:'red'} : null}>
+                    <tr key={index + item.name} onClick={()=>{selectCompetition(item._id)}}>
+
                         <td className={'buttonsInTable'}>{item.name}
                             <span>
                                 <Button variant="outline-secondary" onClick={() => {
@@ -42,7 +37,9 @@ const TableComponent = ({competitions, deleteCompetition, editCompetition,select
                         <td>{item.type}</td>
                         <td>{item.player1}</td>
                         <td>{item.player2}</td>
-                        <td>{item.score}</td>
+                        <td
+                        style={{backgroundColor: item.active === 'true'? 'red':null}}
+                        >{item.score}</td>
                         <td>{item.description}</td>
                         <td>{item.active}</td>
                     </tr>

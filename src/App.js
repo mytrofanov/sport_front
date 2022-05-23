@@ -2,7 +2,6 @@ import React from 'react'
 import {
     fetchCompetitionsFromServer,
     fetchGameTypesFromServer,
-    setSelectedCompetition
 } from "./features/competitions/competitionSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";

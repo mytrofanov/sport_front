@@ -1,12 +1,60 @@
 .block {
     margin: 2%;
 }
-.realTime{
+
+.realTime {
+    z-index: 2;
+    position: fixed;
+    top:90%;
     width: 100%;
-    margin: 2% 0;
-    background-color: sandybrown;
+    font-size: 35px;
+    color: black;
+
+    -moz-transform: translateX(90%);
+    -webkit-transform: translateX(90%);
+    transform: translateX(90%);
+    /* Apply animation to this element */
+    -moz-animation: scroll-left 12s linear infinite;
+    -webkit-animation: scroll-left 12s linear infinite;
+    animation: scroll-left 12s linear infinite;
 }
-.buttonsOnTop{
+
+/* Move it (define the animation) */
+@-moz-keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(95%);
+    }
+    100% {
+        -moz-transform: translateX(-95%);
+    }
+}
+
+@-webkit-keyframes scroll-left {
+    0% {
+        -webkit-transform: translateX(95%);
+    }
+    100% {
+        -webkit-transform: translateX(-95%);
+    }
+}
+
+@keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(95%); /* Browser bug fix */
+        -webkit-transform: translateX(95%); /* Browser bug fix */
+        transform: translateX(95%);
+    }
+    100% {
+        -moz-transform: translateX(-95%); /* Browser bug fix */
+        -webkit-transform: translateX(-95%); /* Browser bug fix */
+        transform: translateX(-95%);
+    }
+}
+
+
+.buttonsOnTop {
     display: flex;
     justify-content: space-between;
 }
+
+

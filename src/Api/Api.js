@@ -1,5 +1,4 @@
 import axios from "axios";
-import {fetchCompetitionsFromServer} from "../features/competitions/competitionSlice";
 
 const instance = axios.create({
     withCredentials: false,

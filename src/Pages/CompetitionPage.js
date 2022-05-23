@@ -25,6 +25,8 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
     const [newActive, setNewActive] = useState(false)
     const competitionsToShow = filteredCompetitions.length <1 ? competitions :filteredCompetitions
 
+    const runningText = selectedCompetition.length >0 && selectedCompetition[0].active === 'true' ? selectedCompetition[0].description :''
+
     const deleteCompetition = (CompetitionId) => {
         competitionsAPI.deleteCompetition(CompetitionId).then(data => {
             console.log('data after delete competition:', data)
@@ -93,7 +95,7 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
     return (
         <div className={'block'}>
             <div className={'realTime'}>
-                Текстова трансляція
+                {runningText}
             </div>
             <div className={'buttonsOnTop'}>
                 <Button variant="outline-secondary"
