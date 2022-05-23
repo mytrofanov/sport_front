@@ -44,7 +44,9 @@ function App() {
             {loading ? <Spinner/> :
                 <CompetitionPage competitions={competitions}
                                  gameTypes={gameTypes}
-                                 selectedCompetition={selectedCompetition}/>}
+                                 selectedCompetition={selectedCompetition}
+                                 startApp={startApp}
+                />}
         </div>
     );
 }

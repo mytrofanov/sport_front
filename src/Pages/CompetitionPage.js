@@ -4,10 +4,18 @@ import './competitionPage.css'
 import {Button} from "react-bootstrap";
 import Modal from "../Components/modal";
 import CompetitionForm from "../Components/competitionForm";
+import {competitionsAPI} from "../Api/Api";
 
-const CompetitionPage = ({competitions, selectedCompetition, gameTypes}) => {
+const CompetitionPage = ({competitions, selectedCompetition, gameTypes,startApp}) => {
     let [showModal, setShowModal] = useState(false)
     console.log('gameTypes:', gameTypes)
+    const deleteCompetition = (CompetitionId)=> {
+        competitionsAPI.deleteCompetition(CompetitionId).then(data=>{
+            console.log('data after delete competition:', data)
+            startApp()
+        })
+
+    }
 
     return (
         <div className={'block'}>
@@ -16,9 +24,9 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes}) => {
                         setShowModal(true)
                     }}
             >+Додати змагання</Button>
-            <TableComponent competitions={competitions} selectedCompetition={selectedCompetition}/>
+            <TableComponent competitions={competitions} selectedCompetition={selectedCompetition} deleteCompetition={deleteCompetition}/>
             <Modal active={showModal} setActive={setShowModal} >
-                {gameTypes.length>1 && <CompetitionForm gameTypes={gameTypes} setActive={setShowModal}/>}
+                {gameTypes.length>1 && <CompetitionForm gameTypes={gameTypes} setActive={setShowModal} startApp={startApp}/>}
             </Modal>
         </div>
     );

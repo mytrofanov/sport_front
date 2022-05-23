@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import {competitionsAPI} from "../Api/Api";
-import {fetchCompetitionsFromServer} from "../features/competitions/competitionSlice";
-import {useDispatch} from "react-redux";
 
-const CompetitionForm = ({name, type, player1, player2, score, description, active, gameTypes, setActive}) => {
-    const dispatch = useDispatch();
+
+const CompetitionForm = ({name, type, player1, player2, score, description, active, gameTypes, setActive,startApp}) => {
+
     const [newName, setNewName] = useState('')
     const [newType, setNewType] = useState(gameTypes[0].game || null)
     const [newPlayer1, setNewPlayer1] = useState('')
@@ -17,7 +16,7 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
     const createNewCompetition = () => {
         competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
             newScore, newDescription, newActive).then(data => {
-            dispatch(fetchCompetitionsFromServer())
+            startApp()
             console.log('data from competitionForm:', data)
         })
     }

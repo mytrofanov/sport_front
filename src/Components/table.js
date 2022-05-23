@@ -2,8 +2,7 @@ import React from 'react';
 import {Button, Table} from "react-bootstrap";
 import './table.css'
 
-
-const TableComponent = ({competitions, selectedCompetition}) => {
+const TableComponent = ({competitions, selectedCompetition, deleteCompetition}) => {
     console.log('competitions:', competitions)
 
     return (
@@ -23,12 +22,14 @@ const TableComponent = ({competitions, selectedCompetition}) => {
                 <tbody>
 
                 {competitions.map((item, index) =>
+
                     <tr key={index + item.name} >
                         <td className={'buttonsInTable'}>{item.name}
                             <span>
-                                <Button variant="outline-secondary">DEL</Button>
+                                <Button variant="outline-secondary" onClick={()=>{deleteCompetition(item._id)}}>DEL</Button>
                                 <Button variant="outline-secondary">EDIT</Button>
-                            </span></td>
+                            </span>
+                        </td>
                         <td>{item.type}</td>
                         <td>{item.player1}</td>
                         <td>{item.player2}</td>
