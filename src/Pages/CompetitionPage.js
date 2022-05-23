@@ -51,10 +51,10 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
                                      startApp={startApp}
                                      editMode={editMode}
                                      selectedCompetition={selectedCompetition}
-                                     // name={selectedCompetition.name}
-                                     // active={selectedCompetition.active} type={selectedCompetition.type}
-                                     // score={selectedCompetition.score} player1={selectedCompetition.player1}
-                                     // player2={selectedCompetition.player2} description={selectedCompetition.description}
+                                     name={selectedCompetition.name}
+                                     active={selectedCompetition.active} type={selectedCompetition.type}
+                                     score={selectedCompetition.score} player1={selectedCompetition.player1}
+                                     player2={selectedCompetition.player2} description={selectedCompetition.description}
                     />}
             </Modal>
         </div>

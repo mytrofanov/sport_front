@@ -1,17 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import {competitionsAPI} from "../Api/Api";
 
 
-const CompetitionForm = ({name, type, player1, player2, score, description, active, gameTypes, setActive,startApp,editMode,selectedCompetition}) => {
+const CompetitionForm = ({   gameTypes,
+                             setActive,
+                             startApp,
+                             editMode,
+                             selectedCompetition
+                         }) => {
 
-    const [newName, setNewName] = useState(editMode?selectedCompetition.name:'')
-    const [newType, setNewType] = useState(editMode?type:gameTypes[0].game)
-    const [newPlayer1, setNewPlayer1] = useState(editMode?player1:'')
-    const [newPlayer2, setNewPlayer2] = useState(editMode?player2:'')
-    const [newScore, setNewScore] = useState(editMode?score:'')
-    const [newDescription, setNewDescription] = useState(editMode?description:'')
-    const [newActive, setNewActive] = useState(editMode?active:false)
+    const [newName, setNewName] = useState('')
+    const [newType, setNewType] = useState(gameTypes[0].game)
+    const [newPlayer1, setNewPlayer1] = useState('')
+    const [newPlayer2, setNewPlayer2] = useState('')
+    const [newScore, setNewScore] = useState('')
+    const [newDescription, setNewDescription] = useState('')
+    const [newActive, setNewActive] = useState(false)
 
     const createNewCompetition = () => {
         competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
@@ -20,19 +25,21 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
             console.log('data from competitionForm:', data)
         })
     }
-    console.log('newName in form: ', newName, 'editMode: ', editMode)
-    console.log('selectedCompetition in form: ', selectedCompetition)
+
     const onFormSubmit = (event) => {
         createNewCompetition()
         event.preventDefault();
         setActive(false)
     }
+    console.log('editMode:', editMode)
+
 
     return (
         <Form onSubmit={onFormSubmit}>
             <Form.Group className="mb-3" controlId="Name">
                 <Form.Control type="text" placeholder="Назва змагання"
                               required={true}
+                              defaultValue={editMode?selectedCompetition[0].name :newName}
                               onChange={e => setNewName(e.target.value)}
 
                 />
@@ -41,6 +48,7 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
                 <Form.Label>Тип змагання</Form.Label>
                 <Form.Select
                     onChange={e => setNewType(e.target.value)}>
+                    <option >{editMode?selectedCompetition[0].type :''}</option>
                     {gameTypes.map((item, index) =>
                         <option key={index + item._id}>{item.game}</option>
                     )}
@@ -48,21 +56,25 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
             </Form.Group>
             <Form.Group className="mb-3" controlId="player1">
                 <Form.Control type="text" placeholder="Ігрок1/Команда1" required={true}
+                              defaultValue={editMode? selectedCompetition[0].player1 :newPlayer1}
                               onChange={e => setNewPlayer1(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="player2">
                 <Form.Control type="text" placeholder="Ігрок2/Команда2" required={true}
+                              defaultValue={editMode? selectedCompetition[0].player2 :newPlayer2}
                               onChange={e => setNewPlayer2(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="score">
                 <Form.Control type="text" placeholder="Рахунок" required={true}
+                              defaultValue={editMode? selectedCompetition[0].score :newScore}
                               onChange={e => setNewScore(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="description">
                 <Form.Control type="text" placeholder="Коментарі"
+                              defaultValue={editMode? selectedCompetition[0].description :newDescription}
                               onChange={e => setNewDescription(e.target.value)}
                 />
             </Form.Group>
@@ -71,8 +83,9 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
                 <Form.Select
                     onChange={e => setNewActive(e.target.value)}
                 >
-                    <option>false</option>
-                    <option>true</option>
+                    <option>{editMode?selectedCompetition[0].active :''} </option>
+                    <option>{editMode?'false' :'false'} </option>
+                    <option>{editMode?'true' :'true'} </option>
                 </Form.Select>
 
 
