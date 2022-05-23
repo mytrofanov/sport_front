@@ -1,36 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Form} from "react-bootstrap";
-import {competitionsAPI} from "../Api/Api";
-
 
 const CompetitionForm = ({   gameTypes,
                              setActive,
-                             startApp,
                              editMode,
-                             selectedCompetition
+                             selectedCompetition, createNewCompetition, newName, setNewName,
+                             setNewType,setNewPlayer1, newDescription, newPlayer2, newPlayer1, newScore,
+                             setNewActive, setNewDescription, setNewPlayer2, setNewScore,updateNewCompetition
                          }) => {
-
-    const [newName, setNewName] = useState('')
-    const [newType, setNewType] = useState(gameTypes[0].game)
-    const [newPlayer1, setNewPlayer1] = useState('')
-    const [newPlayer2, setNewPlayer2] = useState('')
-    const [newScore, setNewScore] = useState('')
-    const [newDescription, setNewDescription] = useState('')
-    const [newActive, setNewActive] = useState(false)
-
-    const createNewCompetition = () => {
-        competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
-            newScore, newDescription, newActive).then(data => {
-            startApp()
-            console.log('data from competitionForm:', data)
-        })
-    }
-
     const onFormSubmit = (event) => {
-        createNewCompetition()
+        if (!editMode) {
+            createNewCompetition()
+        }
+        if (editMode) {
+            const updatedName = event.target.elements.controlId("Name")
+            updateNewCompetition()
+        }
         event.preventDefault();
         setActive(false)
     }
+
     console.log('editMode:', editMode)
 
 
@@ -41,7 +30,6 @@ const CompetitionForm = ({   gameTypes,
                               required={true}
                               defaultValue={editMode?selectedCompetition[0].name :newName}
                               onChange={e => setNewName(e.target.value)}
-
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="type">

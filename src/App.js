@@ -12,7 +12,7 @@ import Spinner from "./Components/spinner";
 
 function App() {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const competitions = useSelector(state => state.competitionsStore.competitions)
     const gameTypes = useSelector(state => state.competitionsStore.gameTypes)
     const selectedCompetition = useSelector(state => state.competitionsStore.selectedCompetition)
@@ -24,17 +24,17 @@ function App() {
     }
 
     useEffect(() => {
-        if (competitions.length < 1) {
+        if (competitions.length < 1 ) {
             setLoading(true)
             startApp()
         }
     }, [])
 
     useEffect(() => {
-        if (competitions.length > 1) {
+        if (competitions.length > 1 ) {
             setLoading(false)
         }
-    }, [competitions])
+    }, [competitions, gameTypes])
 
 
     return (
@@ -45,6 +45,7 @@ function App() {
                                  gameTypes={gameTypes}
                                  selectedCompetition={selectedCompetition}
                                  startApp={startApp}
+
                 />}
         </div>
     );

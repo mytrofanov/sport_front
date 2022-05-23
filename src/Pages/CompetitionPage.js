@@ -9,13 +9,21 @@ import {setSelectedCompetition} from "../features/competitions/competitionSlice"
 import {useDispatch} from "react-redux";
 
 const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp}) => {
-    let [showModal, setShowModal] = useState(false)
-    let [editMode, setEditMode] = useState(false)
     const dispatch = useDispatch();
-
     console.log('competitions:', competitions)
     console.log('gameTypes:', gameTypes)
     console.log('selectedCompetition:', selectedCompetition)
+    let defaultGameType = 'football' || gameTypes[0].game
+    let [showModal, setShowModal] = useState(false)
+    let [editMode, setEditMode] = useState(false)
+    const [newName, setNewName] = useState(editMode?selectedCompetition[0].name :'')
+    const [newType, setNewType] = useState(defaultGameType )
+    const [newPlayer1, setNewPlayer1] = useState(editMode?selectedCompetition[0].newPlayer1 :'')
+    const [newPlayer2, setNewPlayer2] = useState(editMode?selectedCompetition[0].newPlayer2 :'')
+    const [newScore, setNewScore] = useState(editMode?selectedCompetition[0].score: '')
+    const [newDescription, setNewDescription] = useState(editMode?selectedCompetition[0].description:'')
+    const [newActive, setNewActive] = useState(false)
+
 
     const deleteCompetition = (CompetitionId) => {
         competitionsAPI.deleteCompetition(CompetitionId).then(data => {
@@ -32,7 +40,20 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
         setEditMode(true)
         setShowModal(true)
     }
-
+    const createNewCompetition = () => {
+        competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
+            newScore, newDescription, newActive).then(data => {
+            startApp()
+            console.log('data from competitionForm:', data)
+        })
+    }
+    const updateNewCompetition = () => {
+        competitionsAPI.updateNewCompetition(selectedCompetition[0]._id, updatedName, newType, newPlayer1, newPlayer2,
+            newScore, newDescription, newActive).then(data => {
+            startApp()
+            console.log('data from competitionForm:', data)
+        })
+    }
 
     return (
         <div className={'block'}>
@@ -44,17 +65,26 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
             >+Додати змагання</Button>
             <TableComponent competitions={competitions} selectedCompetition={selectedCompetition}
                             deleteCompetition={deleteCompetition} editCompetition={editCompetition}/>
-            <Modal active={showModal} setActive={setShowModal}>
+            <Modal active={showModal} setActive={setShowModal} setEditMode={setEditMode}>
                 {gameTypes.length > 1 &&
                     <CompetitionForm gameTypes={gameTypes}
                                      setActive={setShowModal}
-                                     startApp={startApp}
                                      editMode={editMode}
                                      selectedCompetition={selectedCompetition}
-                                     name={selectedCompetition.name}
-                                     active={selectedCompetition.active} type={selectedCompetition.type}
-                                     score={selectedCompetition.score} player1={selectedCompetition.player1}
-                                     player2={selectedCompetition.player2} description={selectedCompetition.description}
+                                     createNewCompetition={createNewCompetition}
+                                     updateNewCompetition={updateNewCompetition}
+                                     newName={newName}
+                                     setNewName={setNewName}
+                                     setNewType={setNewType}
+                                     setNewPlayer1={setNewPlayer1}
+                                     newPlayer1={newPlayer1}
+                                     setNewPlayer2={setNewPlayer2}
+                                     newPlayer2={newPlayer2}
+                                     setNewScore={setNewScore}
+                                     newScore={newScore}
+                                     setNewDescription={setNewDescription}
+                                     newDescription={newDescription}
+                                     setNewActive={setNewActive}
                     />}
             </Modal>
         </div>
