@@ -18,8 +18,7 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes}) => {
             >+Додати змагання</Button>
             <TableComponent competitions={competitions} selectedCompetition={selectedCompetition}/>
             <Modal active={showModal} setActive={setShowModal} >
-                {gameTypes.length>1 && <CompetitionForm gameTypes={gameTypes}/>}
-
+                {gameTypes.length>1 && <CompetitionForm gameTypes={gameTypes} setActive={setShowModal}/>}
             </Modal>
         </div>
     );
