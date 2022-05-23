@@ -13,14 +13,13 @@ const CompetitionForm = ({   gameTypes,
             createNewCompetition()
         }
         if (editMode) {
-            const updatedName = event.target.elements.controlId("Name")
+
             updateNewCompetition()
         }
         event.preventDefault();
         setActive(false)
     }
 
-    console.log('editMode:', editMode)
 
 
     return (
@@ -29,7 +28,9 @@ const CompetitionForm = ({   gameTypes,
                 <Form.Control type="text" placeholder="Назва змагання"
                               required={true}
                               defaultValue={editMode?selectedCompetition[0].name :newName}
-                              onChange={e => setNewName(e.target.value)}
+                              onChange={e => {
+                                  setNewName(e.target.value)
+                              }}
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="type">
@@ -80,7 +81,7 @@ const CompetitionForm = ({   gameTypes,
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Submit
+                Змінити
             </Button>
         </Form>
     );
