@@ -16,18 +16,9 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
     const [newActive, setNewActive] = useState(false)
 
     const createNewCompetition = () => {
-        const formData = new FormData()
-        formData.append('name', newName)
-        formData.append('type', newType.toString())
-        formData.append('player1', newPlayer1)
-        formData.append('player2', newPlayer2)
-        formData.append('score', newScore)
-        formData.append('description', newDescription)
-        formData.append('active', newActive.toString())
-
-        competitionsAPI.createNewCompetition(formData).then(data => {
-            console.log('competitionsAPI.createNewCompetition')
-            console.log(data)
+        competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
+            newScore, newDescription, newActive).then(data => {
+            console.log('data from competitionForm:', data)
         })
     }
 
