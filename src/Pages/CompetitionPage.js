@@ -40,6 +40,13 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
         setEditMode(true)
         setShowModal(true)
     }
+    const selectCompetition = (CompetitionId) => {
+        const selectedCompetition = competitions.filter(item => {
+            return item._id === CompetitionId
+        })
+        dispatch(setSelectedCompetition(selectedCompetition))
+    }
+
     const createNewCompetition = () => {
         competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
             newScore, newDescription, newActive).then(data => {
@@ -85,6 +92,9 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
 
     return (
         <div className={'block'}>
+            <div className={'realTime'}>
+                Текстова трансляція
+            </div>
             <div className={'buttonsOnTop'}>
                 <Button variant="outline-secondary"
                         onClick={() => {
@@ -115,7 +125,9 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
 
 
             <TableComponent competitions={competitionsToShow} selectedCompetition={selectedCompetition}
-                            deleteCompetition={deleteCompetition} editCompetition={editCompetition}/>
+                            deleteCompetition={deleteCompetition} editCompetition={editCompetition}
+                            selectCompetition={selectCompetition}
+            />
             <Modal active={showModal} setActive={setShowModal} setEditMode={setEditMode}>
                 {gameTypes.length > 1 &&
                     <CompetitionForm gameTypes={gameTypes}

@@ -1,6 +1,11 @@
 .block {
     margin: 2%;
 }
+.realTime{
+    width: 100%;
+    margin: 2% 0;
+    background-color: sandybrown;
+}
 .buttonsOnTop{
     display: flex;
     justify-content: space-between;
