@@ -10,9 +10,7 @@ import {useDispatch} from "react-redux";
 
 const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp, filteredCompetitions}) => {
     const dispatch = useDispatch();
-    console.log('competitions:', competitions)
-    console.log('gameTypes:', gameTypes)
-    console.log('selectedCompetition:', selectedCompetition)
+
     let defaultGameType = 'football' || gameTypes[0].game
     let [showModal, setShowModal] = useState(false)
     let [editMode, setEditMode] = useState(false)
@@ -29,7 +27,6 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
 
     const deleteCompetition = (CompetitionId) => {
         competitionsAPI.deleteCompetition(CompetitionId).then(data => {
-            console.log('data after delete competition:', data)
             startApp()
         })
 
@@ -53,14 +50,12 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
         competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
             newScore, newDescription, newActive).then(data => {
             startApp()
-            console.log('data from competitionForm:', data)
         })
     }
     const updateNewCompetition = () => {
         competitionsAPI.updateNewCompetition(selectedCompetition[0]._id, newName, newType, newPlayer1, newPlayer2,
             newScore, newDescription, newActive).then(data => {
             startApp()
-            console.log('data from competitionForm:', data)
         })
     }
     useEffect(() => {
@@ -89,8 +84,6 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
         dispatch(setFilteredCompetitions(filtered))
     }
 
-    console.log('editMode:', editMode)
-    console.log('filteredCompetitions:', filteredCompetitions)
 
     return (
         <div className={'block'}>
