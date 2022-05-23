@@ -7,7 +7,7 @@ export const competitionSlice = createSlice({
     initialState: {
         competitions: [],
         gameTypes: [],
-        selectedCompetition: null
+        selectedCompetition: []
     },
     reducers: {
         setSelectedCompetition: (state, action) => {

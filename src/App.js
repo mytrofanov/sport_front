@@ -9,7 +9,6 @@ import {useEffect, useState} from "react";
 import styles from './App.module.css'
 import CompetitionPage from "./Pages/CompetitionPage";
 import Spinner from "./Components/spinner";
-import {Button} from "react-bootstrap";
 
 function App() {
     const dispatch = useDispatch();

@@ -3,15 +3,15 @@ import {Button, Form} from "react-bootstrap";
 import {competitionsAPI} from "../Api/Api";
 
 
-const CompetitionForm = ({name, type, player1, player2, score, description, active, gameTypes, setActive,startApp}) => {
+const CompetitionForm = ({name, type, player1, player2, score, description, active, gameTypes, setActive,startApp,editMode,selectedCompetition}) => {
 
-    const [newName, setNewName] = useState('')
-    const [newType, setNewType] = useState(gameTypes[0].game || null)
-    const [newPlayer1, setNewPlayer1] = useState('')
-    const [newPlayer2, setNewPlayer2] = useState('')
-    const [newScore, setNewScore] = useState('')
-    const [newDescription, setNewDescription] = useState('')
-    const [newActive, setNewActive] = useState(false)
+    const [newName, setNewName] = useState(editMode?selectedCompetition.name:'')
+    const [newType, setNewType] = useState(editMode?type:gameTypes[0].game)
+    const [newPlayer1, setNewPlayer1] = useState(editMode?player1:'')
+    const [newPlayer2, setNewPlayer2] = useState(editMode?player2:'')
+    const [newScore, setNewScore] = useState(editMode?score:'')
+    const [newDescription, setNewDescription] = useState(editMode?description:'')
+    const [newActive, setNewActive] = useState(editMode?active:false)
 
     const createNewCompetition = () => {
         competitionsAPI.createNewCompetition(newName, newType, newPlayer1, newPlayer2,
@@ -20,8 +20,8 @@ const CompetitionForm = ({name, type, player1, player2, score, description, acti
             console.log('data from competitionForm:', data)
         })
     }
-
-
+    console.log('newName in form: ', newName, 'editMode: ', editMode)
+    console.log('selectedCompetition in form: ', selectedCompetition)
     const onFormSubmit = (event) => {
         createNewCompetition()
         event.preventDefault();
