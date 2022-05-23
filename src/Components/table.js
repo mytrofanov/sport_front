@@ -2,15 +2,15 @@ import React from 'react';
 import {Button, Table} from "react-bootstrap";
 import './table.css'
 
-const TableComponent = ({competitions, selectedCompetition, deleteCompetition,editCompetition}) => {
-
+const TableComponent = ({competitions, deleteCompetition, editCompetition}) => {
+    console.log('competitions in table: ', competitions)
 
     return (
         <div>
             <Table striped bordered hover>
                 <thead>
                 <tr>
-                    <th>Змагання </th>
+                    <th>Змагання</th>
                     <th>Тип змагання</th>
                     <th>Ігрок1/Команда1</th>
                     <th>Ігрок2/Команда2</th>
@@ -23,11 +23,15 @@ const TableComponent = ({competitions, selectedCompetition, deleteCompetition,ed
 
                 {competitions.map((item, index) =>
 
-                    <tr key={index + item.name} >
+                    <tr key={index + item.name}>
                         <td className={'buttonsInTable'}>{item.name}
                             <span>
-                                <Button variant="outline-secondary" onClick={()=>{deleteCompetition(item._id)}}>DEL</Button>
-                                <Button variant="outline-secondary" onClick={()=>{editCompetition(item._id)}}>EDIT</Button>
+                                <Button variant="outline-secondary" onClick={() => {
+                                    deleteCompetition(item._id)
+                                }}>DEL</Button>
+                                <Button variant="outline-secondary" onClick={() => {
+                                    editCompetition(item._id)
+                                }}>EDIT</Button>
                             </span>
                         </td>
                         <td>{item.type}</td>

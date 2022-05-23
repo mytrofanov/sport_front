@@ -8,14 +8,14 @@ export const competitionSlice = createSlice({
         competitions: [],
         gameTypes: [],
         selectedCompetition: [],
-        updatedCompetition: [],
+        filteredCompetitions: [],
     },
     reducers: {
         setSelectedCompetition: (state, action) => {
             state.selectedCompetition = action.payload
         },
-        setUpdatedCompetition: (state, action) => {
-            state.updatedCompetition = action.payload
+        setFilteredCompetitions: (state, action) => {
+            state.filteredCompetitions = action.payload
         },
     },
     extraReducers: (builder) => {
@@ -31,7 +31,7 @@ export const competitionSlice = createSlice({
 
 })
 
-export const { setSelectedCompetition, setUpdatedCompetition } = competitionSlice.actions
+export const { setSelectedCompetition, setFilteredCompetitions } = competitionSlice.actions
 
 
 export const fetchCompetitionsFromServer = createAsyncThunk(

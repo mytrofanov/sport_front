@@ -5,10 +5,10 @@ import {Button} from "react-bootstrap";
 import Modal from "../Components/modal";
 import CompetitionForm from "../Components/competitionForm";
 import {competitionsAPI} from "../Api/Api";
-import {setSelectedCompetition} from "../features/competitions/competitionSlice";
+import {setFilteredCompetitions, setSelectedCompetition} from "../features/competitions/competitionSlice";
 import {useDispatch} from "react-redux";
 
-const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp}) => {
+const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp, filteredCompetitions}) => {
     const dispatch = useDispatch();
     console.log('competitions:', competitions)
     console.log('gameTypes:', gameTypes)
@@ -17,13 +17,13 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
     let [showModal, setShowModal] = useState(false)
     let [editMode, setEditMode] = useState(false)
     const [newName, setNewName] = useState('')
-    const [newType, setNewType] = useState(defaultGameType )
+    const [newType, setNewType] = useState(defaultGameType)
     const [newPlayer1, setNewPlayer1] = useState('')
     const [newPlayer2, setNewPlayer2] = useState('')
-    const [newScore, setNewScore] = useState( '')
+    const [newScore, setNewScore] = useState('')
     const [newDescription, setNewDescription] = useState('')
     const [newActive, setNewActive] = useState(false)
-
+    const competitionsToShow = filteredCompetitions.length <1 ? competitions :filteredCompetitions
 
     const deleteCompetition = (CompetitionId) => {
         competitionsAPI.deleteCompetition(CompetitionId).then(data => {
@@ -33,7 +33,7 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
 
     }
     const editCompetition = (CompetitionId) => {
-        const selectedCompetition = competitions.filter(item=>{
+        const selectedCompetition = competitions.filter(item => {
             return item._id === CompetitionId
         })
         dispatch(setSelectedCompetition(selectedCompetition))
@@ -54,8 +54,8 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
             console.log('data from competitionForm:', data)
         })
     }
-    useEffect(()=>{
-        if(editMode){
+    useEffect(() => {
+        if (editMode) {
             setNewName(selectedCompetition[0].name)
             setNewType(selectedCompetition[0].type)
             setNewPlayer1(selectedCompetition[0].player1)
@@ -72,19 +72,49 @@ const CompetitionPage = ({competitions, selectedCompetition, gameTypes, startApp
             setNewDescription('')
             setNewActive(false)
         }
-    },[selectedCompetition, editMode])
+    }, [selectedCompetition, editMode])
+    const filter = (gameType) => {
+        const filtered = competitions.filter(item=>{
+        return item.type === gameType
+        })
+        dispatch(setFilteredCompetitions(filtered))
+    }
 
     console.log('editMode:', editMode)
+    console.log('filteredCompetitions:', filteredCompetitions)
 
     return (
         <div className={'block'}>
-            <Button variant="outline-secondary"
-                    onClick={() => {
-                        setShowModal(true)
-                        setEditMode(false)
-                    }}
-            >+Додати змагання</Button>
-            <TableComponent competitions={competitions} selectedCompetition={selectedCompetition}
+            <div className={'buttonsOnTop'}>
+                <Button variant="outline-secondary"
+                        onClick={() => {
+                            setShowModal(true)
+                            setEditMode(false)
+                        }}
+                >+Додати змагання</Button>
+                <span>
+                    {gameTypes.map(item =>
+                        <Button
+                            style={{marginRight:'5px'}}
+                            key={item._id}
+                            variant="outline-secondary"
+                            onClick={() => {
+                            filter(item.game)
+                            }}
+                        >{item.game}</Button>
+                    )}
+                    <Button
+                       variant="outline-secondary"
+                        onClick={() => {
+                            filter('')
+                        }}
+                    >ALL</Button>
+                </span>
+
+            </div>
+
+
+            <TableComponent competitions={competitionsToShow} selectedCompetition={selectedCompetition}
                             deleteCompetition={deleteCompetition} editCompetition={editCompetition}/>
             <Modal active={showModal} setActive={setShowModal} setEditMode={setEditMode}>
                 {gameTypes.length > 1 &&

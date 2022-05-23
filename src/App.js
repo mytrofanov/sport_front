@@ -14,6 +14,7 @@ function App() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true)
     const competitions = useSelector(state => state.competitionsStore.competitions)
+    const filteredCompetitions = useSelector(state => state.competitionsStore.filteredCompetitions)
     const gameTypes = useSelector(state => state.competitionsStore.gameTypes)
     const selectedCompetition = useSelector(state => state.competitionsStore.selectedCompetition)
 
@@ -45,7 +46,7 @@ function App() {
                                  gameTypes={gameTypes}
                                  selectedCompetition={selectedCompetition}
                                  startApp={startApp}
-
+                                 filteredCompetitions={filteredCompetitions}
                 />}
         </div>
     );
